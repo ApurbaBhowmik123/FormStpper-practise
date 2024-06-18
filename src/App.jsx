@@ -5,11 +5,13 @@ import './App.css'
 import Stepper from './stepper/Stepper'
 
 function App() {
-  const [count, setCount] = useState(0)
 
   return (
     <>
-      <Stepper />
+      <div className="app">
+        <Stepper />
+
+      </div>
     </>
   )
 }

@@ -36,6 +36,53 @@
     flex-direction: column;
     gap: 10px;
 }
-.product-checkbox{
+
+.product-checkbox {
     display: flex;
+}
+
+.product-detail {
+    right: -333px !important;
+    position: relative;
+
+}
+
+.product-details input {
+    padding: 16px;
+    width: 100%;
+}
+
+.product-details select {
+    padding: 16px;
+    width: 100%;
+}
+
+/* product-confirmation */
+
+.product-confirmation {
+    left: -450px !important;
+    position: relative;
+}
+
+.product-confirmation select {
+    padding: 10px;
+    width: 100%;
+}
+
+/* btn-btn */
+.btn-btn {
+    margin-top: 45px;
+    display: flex;
+    justify-content: space-around;
+}
+
+.btn-btn button {
+    background-color: rgb(59, 112, 245);
+    color: white;
+    font-weight: bold;
+    border: none;
+}
+
+.btn-btn button:hover {
+    background-color: rgb(50, 105, 230);
 }

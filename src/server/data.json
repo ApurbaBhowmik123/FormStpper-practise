@@ -1,12 +1,61 @@
 {
     "product-category": [
-        {}
+        {
+            "id": 1,
+            "name": "mobile"
+        },
+        {
+            "id": 2,
+            "name": "laptop"
+        },
+        {
+            "id": 3,
+            "name": "cloths"
+        },
+        {
+            "id": 4,
+            "name": "freeze"
+        }
     ],
     "product-color": [
-        {}
+        {
+            "id": 1,
+            "name": "red"
+        },
+        {
+            "id": 2,
+            "name": "white"
+        },
+        {
+            "id": 3,
+            "name": "black"
+        },
+        {
+            "id": 4,
+            "name": "blue"
+        },
+        {
+            "id": 5,
+            "name": "pink"
+        },
+        {
+            "id": 6,
+            "name": "green"
+        }
     ],
     "product-confirmation": [
-        {}
+        {
+            "id": 1,
+            "name": "pending"
+        },
+        {
+            "id": 2,
+            "name": "fullfilled"
+        },
+        {
+            "id": 3,
+            "name": "rejected"
+        }
     ],
     "product-details": [
         {}
