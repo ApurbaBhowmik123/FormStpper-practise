@@ -1,0 +1,41 @@
+.stepper {
+    background-color: rgb(233, 227, 227);
+    border: 1px solid black;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    align-items: center;
+    text-align: center;
+    color: rgb(85, 103, 240);
+    display: flex;
+    justify-content: center;
+    font-weight: bold;
+}
+
+.active {
+    background-color: red;
+    color: white;
+    position: relative;
+    transition: 0.2s all ease-out;
+}
+
+.active::after {
+    width: 100% !important;
+    background-color: black;
+    height: 4px;
+    position: absolute;
+    content: " ";
+    top: 33px;
+    left: 40px;
+}
+
+/* product-details */
+
+.product-details {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.product-checkbox{
+    display: flex;
+}
