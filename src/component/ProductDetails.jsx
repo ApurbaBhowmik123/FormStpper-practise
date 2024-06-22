@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
-function ProductDetails() {
+function ProductDetails({ productname, handleChange, handleProductCategory, productcategory, productcolor, handleProductColor }) {
     const [category, setCategory] = useState([]);
     const [color, setColor] = useState([]);
 
@@ -12,11 +12,12 @@ function ProductDetails() {
                 }
             })
             const responseData = await response.json();
-            console.log(responseData);
             setCategory(responseData)
         }
         categoryData();
     }, []);
+
+    
 
     useEffect(() => {
         const colorData = async () => {
@@ -35,22 +36,25 @@ function ProductDetails() {
         <div className="product-detail">
             <p>Product-Details</p>
             <div className="product-details">
-                <input type="text" placeholder="product name" />
-                <select>
-                    <option>select any</option>
+                <input type="text" placeholder="product name" name="productname" value={productname} onChange={handleChange} />
+                <select onChange={handleProductCategory} name="productcategory">
+                    <option value=''>select any</option>
                     {
-                        category && category.map((opt) => (
-                            <option>{opt.name}</option>
+                        category && category.map((opt, index) => (
+                            <option
+                                key={index}
+                                value={opt.id} disabled={productcategory.includes(opt.id)}>{opt.name}</option>
                         ))
                     }
-
-
                 </select>
+                <div style={{ display: 'flex' }}>
+                    <p style={{ gap: 20, display: "flex" }}>{category.name}</p>
+                </div>
                 <div className="product-checkbox">
                     {
-                        color && color.map((col) => (
-                            <label>{col.name}
-                                <input type="checkbox" />
+                        color && color.map((col, index) => (
+                            <label key={index}>{col.name}
+                                <input type="checkbox" name="productcolor" value={col.id} onChange={handleProductColor} />
                             </label>
                         ))
                     }

@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
-function ProductConfirmation({ productconfirmation }) {
+function ProductConfirmation({ formData, handleChange }) {
     const [confirmation, setConfirmation] = useState([]);
-
     useEffect(() => {
         const confirmationData = async () => {
             try {
@@ -19,21 +18,26 @@ function ProductConfirmation({ productconfirmation }) {
         }
         confirmationData();
     }, [])
+
     return (
 
         <div className="product-confirmation">
             <p>Product-Confirmation</p>
             <div>
-                <select name="productconfirmation" value={productconfirmation.name}>
+                <select name="productconfirmation" value={formData.productconfirmation} onChange={handleChange}>
                     <option>select any</option>
                     {
                         confirmation && confirmation.map((con) => (
-                            <option value={con.name}>{con.name}</option>
+                            <option key={con.name} value={con.id}>{con.name}</option>
                         ))
                     }
                 </select>
                 {
-                    productconfirmation.name === 'pending' || productconfirmation.name === 'rejected' && <textarea></textarea>
+                    (formData.productconfirmation === "1" ||
+                        formData.productconfirmation === '3') &&
+                    (<textarea placeholder={formData.productconfirmation} name="productdeatils"
+                        value={formData.productdetails}
+                        onChange={handleChange}></textarea>)
                 }
             </div>
         </div>
