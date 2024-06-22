@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-function ProductConfirmation({ formData, handleChange }) {
+function ProductConfirmation({ formData, setFormData, productconfirmation }) {
     const [confirmation, setConfirmation] = useState([]);
     useEffect(() => {
         const confirmationData = async () => {
@@ -18,13 +18,20 @@ function ProductConfirmation({ formData, handleChange }) {
         }
         confirmationData();
     }, [])
-
+    const handleconfirmation = (e) => {
+        const { value } = e.target;
+        console.log(value);
+        setFormData({
+            ...formData,
+            productconfirmation: [{ id: value }]
+        })
+    }
     return (
 
         <div className="product-confirmation">
             <p>Product-Confirmation</p>
             <div>
-                <select name="productconfirmation" value={formData.productconfirmation} onChange={handleChange}>
+                <select name="productconfirmation" value={formData.productconfirmation} onChange={handleconfirmation}>
                     <option>select any</option>
                     {
                         confirmation && confirmation.map((con) => (

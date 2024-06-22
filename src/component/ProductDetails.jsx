@@ -1,9 +1,14 @@
 import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 
-function ProductDetails({ productname, handleChange, handleProductCategory, productcategory, productcolor, handleProductColor }) {
+
+function ProductDetails({ productname, handleChange, handleProductCategory, productcategory, productcolor, handleProductColor,id }) {
     const [category, setCategory] = useState([]);
+    const [categoryItem, setCategoryItem] = useState([]);
     const [color, setColor] = useState([]);
-
+    // const { id } = useParams();
+    console.log(id);
+    console.log(categoryItem)
     useEffect(() => {
         const categoryData = async () => {
             const response = await fetch("http://localhost:3000/product-category", {
@@ -17,7 +22,24 @@ function ProductDetails({ productname, handleChange, handleProductCategory, prod
         categoryData();
     }, []);
 
-    
+    useEffect(() => {
+        const categoryDetails = async () => {
+            try {
+                const response = await fetch(`http://localhost:3000/product-category/${id}`, {
+                    method: 'get',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                })
+                const responseData = await response.json();
+                console.log(responseData)
+                setCategoryItem(responseData)
+            } catch (error) {
+                console.log(error)
+            }
+        }
+        categoryDetails();
+    }, []);
 
     useEffect(() => {
         const colorData = async () => {
@@ -48,7 +70,7 @@ function ProductDetails({ productname, handleChange, handleProductCategory, prod
                     }
                 </select>
                 <div style={{ display: 'flex' }}>
-                    <p style={{ gap: 20, display: "flex" }}>{category.name}</p>
+                    <p style={{ gap: 20, display: "flex" }}>{categoryItem.name}</p>
                 </div>
                 <div className="product-checkbox">
                     {

@@ -59,14 +59,7 @@ function Stepper() {
 
         }
     }
-    const handleconfirmation = (e) => {
-        const { value } = e.target;
-        console.log(value);
-        setFormData({
-            ...formData,
-            productconfirmation: [{ id: value }]
-        })
-    }
+
     return (
         <div>
             <div>
@@ -83,7 +76,8 @@ function Stepper() {
                             handleProductCategory={handleProductCategory}
                             productcategory={formData.productcategory}
                             handleProductColor={handleProductColor}
-                            productcolor={formData.productcolor} />}
+                            productcolor={formData.productcolor} 
+                            id={formData.productcategory.id}/>}
 
                     </div>
                     <div>
@@ -98,7 +92,7 @@ function Stepper() {
                             <span className={`stepper ${activeStep === 3 ? 'active' : ''}`}>3</span>
                             <h3>ProductConfirmation</h3>
                         </div>
-                        {activeStep === 3 && <ProductConfirmation formData={formData} handleChange={handleconfirmation} />}
+                        {activeStep === 3 && <ProductConfirmation formData={formData} productconfirmation={formData.productconfirmation} setFormData={setFormData} />}
                     </div>
 
                 </div>
