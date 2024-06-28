@@ -1,14 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
 
-
-function ProductDetails({ productname, handleChange, handleProductCategory, productcategory, productcolor, handleProductColor,id }) {
+function ProductDetails({ productname, productcategory, productcolor,setFormData,formData }) {
     const [category, setCategory] = useState([]);
-    const [categoryItem, setCategoryItem] = useState([]);
     const [color, setColor] = useState([]);
-    // const { id } = useParams();
-    console.log(id);
-    console.log(categoryItem)
+
     useEffect(() => {
         const categoryData = async () => {
             const response = await fetch("http://localhost:3000/product-category", {
@@ -20,25 +15,6 @@ function ProductDetails({ productname, handleChange, handleProductCategory, prod
             setCategory(responseData)
         }
         categoryData();
-    }, []);
-
-    useEffect(() => {
-        const categoryDetails = async () => {
-            try {
-                const response = await fetch(`http://localhost:3000/product-category/${id}`, {
-                    method: 'get',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    }
-                })
-                const responseData = await response.json();
-                console.log(responseData)
-                setCategoryItem(responseData)
-            } catch (error) {
-                console.log(error)
-            }
-        }
-        categoryDetails();
     }, []);
 
     useEffect(() => {
@@ -54,23 +30,50 @@ function ProductDetails({ productname, handleChange, handleProductCategory, prod
         colorData();
     }, [])
 
+
+    const handleProductCategory = (e) => {
+
+        const { value } = e.target;
+        // const productArray = [...formData.productcategory, value];
+        setFormData({ ...formData, productcategory: [...formData.productcategory, { id: value }] })
+    }
+
+    const handleProductColor = (e) => {
+        const { value } = e.target;
+        // const colorarray = [...formData.productcolor, value];
+        setFormData({ ...formData, productcolor: [...formData.productcolor, { id: value }] })
+
+    }
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setFormData({
+            ...formData,
+            [name]: value
+        })
+    }
+    
     return (
         <div className="product-detail">
             <p>Product-Details</p>
             <div className="product-details">
                 <input type="text" placeholder="product name" name="productname" value={productname} onChange={handleChange} />
                 <select onChange={handleProductCategory} name="productcategory">
-                    <option value=''>select any</option>
+                    {!productcategory.length && <option value=''>select any</option>}
+
                     {
                         category && category.map((opt, index) => (
                             <option
                                 key={index}
-                                value={opt.id} disabled={productcategory.includes(opt.id)}>{opt.name}</option>
+                                value={opt.id} disabled={productcategory.some(cat => cat.id === opt.id)}>{opt.name}</option>
                         ))
                     }
                 </select>
-                <div style={{ display: 'flex' }}>
-                    <p style={{ gap: 20, display: "flex" }}>{categoryItem.name}</p>
+                <div style={{ display: 'flex', gap: '10px' }}>
+                    {
+                        productcategory && productcategory.map((cats, ind) => (
+                            <p key={ind}>{category.find((cat) => cat.id === cats.id)?.name}</p>
+                        ))
+                    }
                 </div>
                 <div className="product-checkbox">
                     {
@@ -83,7 +86,7 @@ function ProductDetails({ productname, handleChange, handleProductCategory, prod
 
                 </div>
             </div>
-        </div>
+        </div >
     )
 }
 

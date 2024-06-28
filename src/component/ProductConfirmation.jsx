@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 
-function ProductConfirmation({ formData, setFormData, productconfirmation }) {
+function ProductConfirmation({ formData, setFormData, productconfirmation, productdeatils }) {
     const [confirmation, setConfirmation] = useState([]);
+
     useEffect(() => {
         const confirmationData = async () => {
             try {
@@ -20,10 +21,16 @@ function ProductConfirmation({ formData, setFormData, productconfirmation }) {
     }, [])
     const handleconfirmation = (e) => {
         const { value } = e.target;
-        console.log(value);
         setFormData({
             ...formData,
-            productconfirmation: [{ id: value }]
+            productconfirmation: { id: value }
+        })
+    }
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setFormData({
+            ...formData,
+            [name]: value
         })
     }
     return (
@@ -31,7 +38,7 @@ function ProductConfirmation({ formData, setFormData, productconfirmation }) {
         <div className="product-confirmation">
             <p>Product-Confirmation</p>
             <div>
-                <select name="productconfirmation" value={formData.productconfirmation} onChange={handleconfirmation}>
+                <select name="productconfirmation" onChange={handleconfirmation}>
                     <option>select any</option>
                     {
                         confirmation && confirmation.map((con) => (
@@ -40,10 +47,9 @@ function ProductConfirmation({ formData, setFormData, productconfirmation }) {
                     }
                 </select>
                 {
-                    (formData.productconfirmation === "1" ||
-                        formData.productconfirmation === '3') &&
-                    (<textarea placeholder={formData.productconfirmation} name="productdeatils"
-                        value={formData.productdetails}
+                    (productconfirmation.id === '1' || productconfirmation.id === '3') &&
+                    (<textarea placeholder="write somethng..." name="productdeatils"
+                        value={formData.productdeatils}
                         onChange={handleChange}></textarea>)
                 }
             </div>

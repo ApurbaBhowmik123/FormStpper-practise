@@ -12,37 +12,19 @@ function Stepper() {
         productname: '',
         productcategory: [],
         productcolor: [],
-        productimage: null,
+        productimage: '',
         productdescription: '',
         productconfirmation: '',
         productdeatils: ''
     })
-    const handleChange = (e) => {
-        const { name, value } = e.target;
-        setFormData({
-            ...formData,
-            [name]: value
-        })
-    }
+
+    console.log(formData)
+
     const handleNext = () => {
         setActiveStep(activeStep + 1)
     }
     const handlePrev = () => {
         setActiveStep(activeStep - 1)
-    }
-    const handleProductCategory = (e) => {
-
-        const { value } = e.target;
-        // const productArray = [...formData.productcategory, value];
-        setFormData({ ...formData, productcategory: [...formData.productcategory, { id: value }] })
-    }
-    const handleProductColor = (e) => {
-        const { value } = e.target;
-        // const colorarray = [...formData.productcolor, value];
-        setFormData({ ...formData, productcolor: [...formData.productcolor, { id: value }] })
-    }
-    const handleImage = (e) => {
-        setFormData({ ...formData, productimage: e.target.files[0] })
     }
 
     const handleSubmit = async () => {
@@ -56,7 +38,7 @@ function Stepper() {
             })
             const responseData = await response.json();
         } catch (error) {
-
+            console.log(error)
         }
     }
 
@@ -72,12 +54,10 @@ function Stepper() {
                         </div>
                         {activeStep === 1 && <ProductDetails
                             productname={formData.productname}
-                            handleChange={handleChange}
-                            handleProductCategory={handleProductCategory}
                             productcategory={formData.productcategory}
-                            handleProductColor={handleProductColor}
-                            productcolor={formData.productcolor} 
-                            id={formData.productcategory.id}/>}
+                            productcolor={formData.productcolor}
+                            setFormData={setFormData}
+                            formData={formData} />}
 
                     </div>
                     <div>
@@ -85,14 +65,23 @@ function Stepper() {
                             <span className={`stepper ${activeStep === 2 ? 'active' : ''}`}>2</span>
                             <h3>ProductImage</h3>
                         </div>
-                        {activeStep === 2 && <ProductImage productdescription={formData.productdescription} handleChange={handleChange} />}
+                        {activeStep === 2 && <ProductImage
+                            productdescription={formData.productdescription}
+                            productimage={formData.productimage}
+                            setFormData={setFormData}
+                            formData={formData} />}
                     </div>
                     <div>
                         <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
                             <span className={`stepper ${activeStep === 3 ? 'active' : ''}`}>3</span>
                             <h3>ProductConfirmation</h3>
                         </div>
-                        {activeStep === 3 && <ProductConfirmation formData={formData} productconfirmation={formData.productconfirmation} setFormData={setFormData} />}
+                        {activeStep === 3 && <ProductConfirmation
+                            formData={formData}
+                            productconfirmation={formData.productconfirmation}
+                            setFormData={setFormData}
+                            productdeatils={formData.productdeatils}
+                        />}
                     </div>
 
                 </div>
